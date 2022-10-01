@@ -6,7 +6,7 @@ async function main() {
 
   const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
     owner: env.GITHUB_REPOSITORY_OWNER,
-    repo: env.GITHUB_REPOSITORY,
+    repo: env.GITHUB_REPOSITORY.replace(`${env.GITHUB_REPOSITORY_OWNER}/`, ""),
     state: "open",
   });
   // console.log({ issues });
