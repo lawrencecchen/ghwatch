@@ -1,12 +1,6 @@
 import { env } from "./env";
 import { octokit } from "./octokit";
 
-// console.log(env);
-// octokit.rest.issues.get({
-//   owner: "lawrencecchen",
-//   repo: "octokit.js",
-// })
-
 async function main() {
   console.log({ env });
 
@@ -16,3 +10,5 @@ async function main() {
   });
   console.log({ issues });
 }
+
+main();
