@@ -9,6 +9,7 @@ async function getCommitHash(url: string) {
     return match[0];
   }
   const html = await fetch(url).then((r) => r.text());
+  console.log({ html });
   const baseUrlRegex = /https:\/\/github\.com\/[^\/]+\/[^\/]+/gm;
   const baseUrl = html.match(baseUrlRegex)?.[0];
   if (!baseUrl) {
@@ -16,6 +17,7 @@ async function getCommitHash(url: string) {
     return null;
   }
   const commitHrefRegex = new RegExp(baseUrl + "/commit/" + sha1Regex);
+  console.log({ commitHrefRegex });
   const commitHref = html.match(commitHrefRegex)?.[0];
   if (!commitHref) {
     console.error(`❌ Invalid github url (no commit found): ${url}`);
@@ -30,7 +32,7 @@ async function getCommitHash(url: string) {
 }
 
 async function main() {
-  console.log({ env });
+  // console.log({ env });
 
   const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
     owner: env.GITHUB_REPOSITORY_OWNER,
