@@ -9,9 +9,8 @@ async function getCommitHash(url: string) {
     return match[0];
   }
   const html = await fetch(url).then((r) => r.text());
-  console.log({ html });
   const baseUrlRegex = /https:\/\/github\.com\/[^\/]+\/[^\/]+/gm;
-  const baseUrl = html.match(baseUrlRegex)?.[0];
+  const baseUrl = url.match(baseUrlRegex)?.[0];
   if (!baseUrl) {
     console.error(`❌ Invalid github url (no base found): ${url}`);
     return null;
