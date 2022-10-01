@@ -15,7 +15,10 @@ async function getCommitHash(url: string) {
     console.error(`❌ Invalid github url (no base found): ${url}`);
     return null;
   }
-  const commitHrefRegex = new RegExp(baseUrl + "/commit/" + /([a-f0-9]{40})/);
+  const commitHrefRegex = new RegExp(
+    baseUrl + "/commit" + /([a-f0-9]{40})/,
+    "gi"
+  );
   console.log({ commitHrefRegex });
   const commitHref = html.match(commitHrefRegex)?.[0];
   if (!commitHref) {
