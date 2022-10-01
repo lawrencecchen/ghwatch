@@ -1,7 +1,3 @@
-import { env } from "./env";
-import { octokit } from "./octokit";
-
-// Returns either a commit hash from the url or from innerHTML.
 async function getCommitHash(url: string) {
   const sha1Regex = /\b([a-f0-9]{40})\b/;
   const match = url.match(sha1Regex);
@@ -16,10 +12,12 @@ async function getCommitHash(url: string) {
     return null;
   }
   const commitHrefRegex = new RegExp(
-    // blob not commmit for some reason since github weird
     baseUrl.replace("https://github.com", "") + "/blob/([a-f0-9]{40})"
   );
   console.log({ commitHrefRegex });
+  console.log(html);
+  const commitHrefMatches = html.match(commitHrefRegex);
+  console.log({ commitHrefMatches });
   const commitHref = html.match(commitHrefRegex)?.[0];
   console.log({ commitHref: html.match(commitHrefRegex) });
   if (!commitHref) {
@@ -34,23 +32,7 @@ async function getCommitHash(url: string) {
   return commitHash;
 }
 
-async function main() {
-  // console.log({ env });
-
-  const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
-    owner: env.GITHUB_REPOSITORY_OWNER,
-    repo: env.GITHUB_REPOSITORY.replace(`${env.GITHUB_REPOSITORY_OWNER}/`, ""),
-    state: "open",
-  });
-  // console.log({ issues });
-
-  for (const issue of issues) {
-    const commitHash = await getCommitHash(issue.title);
-    if (!commitHash) {
-      continue;
-    }
-    console.log({ commitHash });
-  }
-}
-
-main();
+const foo = getCommitHash(
+  "https://github.com/lawrencecchen/ghwatch/blob/main/README.md"
+);
+console.log({ foo });
