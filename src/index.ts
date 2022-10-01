@@ -6,8 +6,8 @@ async function main() {
   console.log("prpoc", process.env);
 
   const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
-    owner: "lawrencecchen",
-    repo: "ghwatch",
+    owner: env.GITHUB_REPOSITORY_OWNER,
+    repo: env.GITHUB_REPOSITORY,
     state: "open",
   });
   // console.log({ issues });

@@ -4,6 +4,8 @@ dotenv.config();
 
 const envSchema = z.object({
   GH_TOKEN: z.string(),
+  GITHUB_REPOSITORY_OWNER: z.string(),
+  GITHUB_REPOSITORY: z.string(),
 });
 
 const _env = envSchema.safeParse(process.env);
