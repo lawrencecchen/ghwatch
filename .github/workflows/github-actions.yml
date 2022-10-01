@@ -5,12 +5,12 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: actions/checkout@v3
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: "pnpm"
       - run: pnpm install --frozen-lockfile
       - run: pnpm start
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
